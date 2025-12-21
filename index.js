@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const fs = require('node:fs');
 const path = require('node:path');
+const express = require('express');
 
 // discord.jsのライブラリの読み込み
 const { Client, Collection, GatewayIntentBits, REST, Routes, Events } = require('discord.js');
