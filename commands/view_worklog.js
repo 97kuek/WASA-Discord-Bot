@@ -10,7 +10,7 @@ const formatDuration = (ms, unit) => {
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('worklog')
+        .setName('log')
         .setDescription('作業時間の記録を表示します。')
         .addSubcommand(sub => sub.setName('summary').setDescription('期間を指定して作業時間の要約を表示します。')
             .addStringOption(opt => opt.setName('period').setDescription('集計期間').setRequired(true)

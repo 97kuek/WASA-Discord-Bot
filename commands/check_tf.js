@@ -3,7 +3,7 @@ const weatherUtil = require('../utils/weather');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('check_tf')
+        .setName('tf')
         .setDescription('富士川の滑空場におけるTF実施判定')
         .addStringOption(opt => opt.setName('when').setDescription('判定日').setRequired(true).addChoices({ name: '今日', value: '0' }, { name: '明日', value: '1' })),
 

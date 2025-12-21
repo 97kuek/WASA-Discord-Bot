@@ -12,23 +12,11 @@ module.exports = {
             .setDescription('このBotで利用できるコマンドの一覧です。')
             .addFields(
                 { name: '`/help`', value: 'このヘルプメッセージを表示します。' },
-                { name: '---', value: '\u200B' }, // Spacer
-                { name: '📅 カウントダウン', value: '`/countdown <subcommand>`' },
-                { name: '`show`', value: 'すべてのカウントダウンを表示します。', inline: true },
-                { name: '`list`', value: 'すべての目標をID付きで一覧表示します。', inline: true },
-                { name: '`add`', value: '新しい目標を追加します。', inline: true },
-                { name: '`remove`', value: 'IDを指定して目標を削除します。', inline: true },
-                { name: '---', value: '\u200B' }, // Spacer
-                { name: '📊 作業記録', value: '`/worklog <subcommand>`' },
-                { name: '`summary`', value: '週/月/全期間の作業時間を集計して表示します。', inline: true },
-                { name: '---', value: '\u200B' }, // Spacer
-                { name: '☀️ 天候', value: '`/check_tf`' },
-                { name: '`today`/`tomorrow`', value: '富士川滑空場のTF実施可否を判定します。', inline: true },
-                { name: '---', value: '\u200B' }, // Spacer
-                { name: '⚙️ 設定 (管理者のみ)', value: '`/setting <subcommand>`' },
-                { name: '`notifications`', value: '定時通知を送信するチャンネルを設定します。', inline: true },
-                { name: '`worklog_channel`', value: '作業記録を行うチャンネルを設定します。', inline: true },
-                { name: '`roles_panel`', value: 'ロール付与パネルを設置します。', inline: true },
+                { name: '`/cd`', value: '設定された目標までのカウントダウンを表示します。' },
+                { name: '`/log <期間>`', value: '作業記録の要約を表示します。（期間: `今週`, `今月`, `全期間`）' },
+                { name: '`/tf <日時>`', value: '富士川滑空場のTF実施可否を判定します。（日時: `今日`, `明日`）' },
+                { name: '---', value: '\u200B' },
+                { name: '`/settings` (管理者のみ)', value: 'ボットのすべての設定を対話形式で行います。通知チャンネル、カウントダウン目標、ロールなどを一括で管理できます。' }
             )
             .setTimestamp();
 
