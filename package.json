@@ -1,9 +1,10 @@
 {
-  "name": "my-discord-bot",
+  "name": "wasa-discord-bot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +14,7 @@
     "axios": "^1.13.2",
     "discord.js": "^14.25.1",
     "dotenv": "^17.2.3",
+    "express": "^4.22.1",
     "node-cron": "^4.2.1"
   }
 }

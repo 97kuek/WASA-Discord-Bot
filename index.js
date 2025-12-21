@@ -7,6 +7,13 @@ const path = require('node:path');
 // discord.jsのライブラリの読み込み
 const { Client, Collection, GatewayIntentBits, REST, Routes, Events } = require('discord.js');
 
+const app = express();
+const PORT = process.env.PORT || 3000;
+app.get('/', (req, res) => res.send('WASA Bot is running!'));
+app.listen(PORT, () => {
+    console.log(`Web server is listening on port ${PORT}`);
+});
+
 // 定時タスクのライブラリの読み込み
 const initializeCronTasks = require('./cron/tasks');
 
@@ -24,12 +31,12 @@ const stringSelectMenuHandler = require('./handlers/stringSelectMenuHandler');
 const messageHandler = require('./handlers/messageHandler');
 
 // ボットの初期設定
-const client = new Client({ 
+const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages, // メッセージ受信に必要
         GatewayIntentBits.MessageContent  // メッセージの内容取得に必要
-    ] 
+    ]
 });
 
 client.commands = new Collection();
