@@ -13,10 +13,10 @@ module.exports = {
         const name = interaction.options.getString('name');
 
         if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || isNaN(new Date(date).getTime())) {
-            return interaction.reply({ content: '❌ 日付形式が不正です。', ephemeral: true });
+            return interaction.reply({ content: '日付形式が不正です！', ephemeral: true });
         }
 
         configManager.save(date, name);
-        await interaction.reply(`✅ 目標を **${name}** (${date}) に設定しました。`);
+        await interaction.reply(`目標を **${name}** (${date}) に設定しました！`);
     }
 };

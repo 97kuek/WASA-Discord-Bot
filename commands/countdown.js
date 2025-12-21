@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction) {
         const text = countdownUtil.getCountdownText();
         const embed = new EmbedBuilder()
-            .setTitle('🏁 チーム目標カウントダウン')
+            .setTitle('目標カウントダウン')
             .setDescription(text)
             .setColor(0x3498DB)
             .setTimestamp();

@@ -7,8 +7,8 @@ module.exports = {
         const now = new Date();
         const diffDays = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
 
-        if (diffDays > 0) return `🚀 **${config.eventName}** まであと **${diffDays}日** です！`;
-        if (diffDays === 0) return `🔥 ついに **${config.eventName}** 当日です！`;
-        return `✅ ${config.eventName} は終了しました。`;
+        if (diffDays > 0) return `**${config.eventName}** まであと **${diffDays}日** です！`;
+        if (diffDays === 0) return `ついに **${config.eventName}** 当日です！`;
+        return `${config.eventName} は終了しました。`;
     }
 };
