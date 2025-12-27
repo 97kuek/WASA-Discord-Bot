@@ -11,7 +11,7 @@ const { Client, Collection, GatewayIntentBits, REST, Routes, Events } = require(
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => res.send('WASA Bot is running!'));
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Web server is listening on port ${PORT}`);
 });
 
