@@ -28,10 +28,12 @@ const worklogManager = require('./utils/worklogManager');
 const commandHandler = require('./handlers/commandHandler');
 const buttonHandler = require('./handlers/buttonHandler');
 const modalSubmitHandler = require('./handlers/modalSubmitHandler');
-const stringSelectMenuHandler = require('./handlers/stringSelectMenuHandler');
+const stringSelectMenuHandler = require('./handlers/stringSelectMenuHandler.js');
 const messageHandler = require('./handlers/messageHandler');
 
-// ボットの初期設定
+// 設定ファイルを初期化
+configManager.initialize();
+
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -56,33 +58,40 @@ for (const file of commandFiles) {
     }
 }
 
-client.once(Events.ClientReady, async () => {
-    configManager.initialize(); // ★ 起動時に設定を読み込んでキャッシュを作成
-    console.log(`Login successful: ${client.user.tag}`);
+const logger = require('./utils/logger.js');
 
-    const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
-    try {
-        await rest.put(Routes.applicationCommands(process.env.APPLICATION_ID), { body: commands });
-        console.log('Command registration completed');
-    } catch (e) { console.error(e); }
-
+client.once('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
+    logger.log(client, 'Bot起動', `${client.user.tag}として正常に起動しました。`);
     initializeCronTasks(client);
 });
 
 
-client.on(Events.InteractionCreate, async interaction => {
-    if (interaction.isChatInputCommand() || interaction.isAutocomplete()) {
-        commandHandler(interaction, client);
-    } else if (interaction.isButton()) {
-        buttonHandler.handler(interaction);
-    } else if (interaction.isModalSubmit()) {
-        modalSubmitHandler(interaction);
-    } else if (interaction.isStringSelectMenu()) {
-        stringSelectMenuHandler(interaction);
+client.on('messageCreate', async message => {
+    try {
+        await messageHandler(message, client);
+    } catch (error) {
+        console.error('An unexpected error occurred in messageCreate event:', error);
     }
 });
 
-client.on(Events.MessageCreate, messageHandler);
+client.on('interactionCreate', async interaction => {
+    try {
+        if (interaction.isChatInputCommand()) {
+            await commandHandler(interaction, client);
+        } else if (interaction.isButton()) {
+            await buttonHandler.handler(interaction);
+        } else if (interaction.isModalSubmit()) {
+            await modalSubmitHandler(interaction);
+        } else if (interaction.isStringSelectMenu()) {
+            await stringSelectMenuHandler(interaction);
+        }
+    } catch (error) {
+        console.error('An unexpected error occurred in interactionCreate event:', error);
+        // interactionCreate のエラーは各ハンドラで処理されるべきだが、ここでのcatchは念のため
+        // 必要に応じて、ここでもユーザーへのエラー通知を検討
+    }
+});
 
 // ボットの起動
 client.login(process.env.DISCORD_TOKEN);

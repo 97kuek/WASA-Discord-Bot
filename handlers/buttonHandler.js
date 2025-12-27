@@ -5,11 +5,13 @@ async function getBasicSettingsPanel() {
     const config = configManager.getConfig();
     const notifyChannel = config.notifyChannelId ? `<#${config.notifyChannelId}>` : '未設定';
     const worklogChannel = config.workChannelId ? `<#${config.workChannelId}>` : '未設定';
+    const logChannel = config.logChannelId ? `<#${config.logChannelId}>` : '未設定';
 
     const embed = new EmbedBuilder()
         .setTitle('📝 基本設定')
-        .setDescription('通知や作業記録に使用するチャンネルを設定します。')
+        .setDescription('通知、作業記録、ログ出力に使用するチャンネルを設定します。')
         .addFields(
+            { name: 'ログ出力チャンネル', value: logChannel, inline: false },
             { name: '通知チャンネル', value: notifyChannel, inline: true },
             { name: '作業記録チャンネル', value: worklogChannel, inline: true }
         )
@@ -203,9 +205,14 @@ module.exports = {
             if (type === 'basic' && args[0] === 'settings' && args[1] === 'edit') {
                  const config = configManager.getConfig();
                  const modal = new ModalBuilder().setCustomId('modal-basic-settings-edit').setTitle('基本設定の変更');
+                 const logInput = new TextInputBuilder().setCustomId('log-channel-id').setLabel("ログ出力チャンネルID").setStyle(TextInputStyle.Short).setRequired(false).setValue(config.logChannelId || '');
                  const notifyInput = new TextInputBuilder().setCustomId('notify-channel-id').setLabel("通知チャンネルID").setStyle(TextInputStyle.Short).setRequired(false).setValue(config.notifyChannelId || '');
                  const worklogInput = new TextInputBuilder().setCustomId('worklog-channel-id').setLabel("作業記録チャンネルID").setStyle(TextInputStyle.Short).setRequired(false).setValue(config.workChannelId || '');
-                 modal.addComponents(new ActionRowBuilder().addComponents(notifyInput), new ActionRowBuilder().addComponents(worklogInput));
+                 modal.addComponents(
+                    new ActionRowBuilder().addComponents(logInput),
+                    new ActionRowBuilder().addComponents(notifyInput),
+                    new ActionRowBuilder().addComponents(worklogInput)
+                );
                  await interaction.showModal(modal);
             }
 

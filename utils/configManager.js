@@ -5,6 +5,7 @@ const CONFIG_FILE = path.join(__dirname, '../config.json');
 
 // デフォルトの設定
 const DEFAULT_CONFIG = {
+    logChannelId: null,
     notifyChannelId: null,
     workChannelId: null,
     countdownTargets: [{ id: 1, name: '鳥人間コンテスト', date: '2026-07-25' }],

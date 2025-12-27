@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "node deploy-commands.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,8 @@
     "dotenv": "^17.2.3",
     "express": "^4.22.1",
     "node-cron": "^4.2.1"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
   }
 }

@@ -22,9 +22,10 @@ module.exports = async (interaction) => {
             await interaction.update(await getCountdownManagementPanel());
         }
         if (type === 'modal' && args[0] === 'basic' && args[1] === 'settings' && args[2] === 'edit') {
+            const logChannelId = interaction.fields.getTextInputValue('log-channel-id') || null;
             const notifyChannelId = interaction.fields.getTextInputValue('notify-channel-id') || null;
             const workChannelId = interaction.fields.getTextInputValue('worklog-channel-id') || null;
-            await configManager.update({ notifyChannelId, workChannelId });
+            await configManager.update({ logChannelId, notifyChannelId, workChannelId });
             await interaction.update(await getBasicSettingsPanel());
         }
     } catch (error) {

@@ -24,6 +24,7 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === 'summary') {
+            await interaction.deferReply();
             const period = interaction.options.getString('period');
             const allSessions = worklogManager.getAllSessions();
 
@@ -68,7 +69,7 @@ module.exports = {
                  embed.setDescription('この期間の作業記録はありません。');
             }
             
-            await interaction.reply({ embeds: [embed] });
+            await interaction.editReply({ embeds: [embed] });
         }
     }
 };
